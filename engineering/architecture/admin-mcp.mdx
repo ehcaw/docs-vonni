@@ -1,0 +1,77 @@
+---
+title: "Admin MCP"
+sidebarTitle: "Admin MCP"
+description: "Product spec for the Admin MCP page on the dashboard: scope, user flows, capabilities, and security model."
+---
+
+## Overview
+
+The **Admin MCP** page in the dashboard exposes a Model Context Protocol (MCP) server scoped to administrative operations. It lets admins connect AI assistants (Claude, Cursor, internal agents) directly to dashboard-equivalent actions — managing members, deployments, integrations, and analytics — without writing custom API glue.
+
+<Info>
+  This spec covers the dashboard surface only. The underlying MCP server contract is documented separately in the platform repo.
+</Info>
+
+## Goals
+
+- Give admins a single place to discover, configure, and revoke MCP access for their org.
+- Surface every dashboard action available over MCP, grouped by namespace.
+- Make scope and audit behavior obvious before a token is issued.
+
+## Non-goals
+
+- End-user (non-admin) MCP access — tracked separately.
+- Self-hosted MCP server deployment.
+- IDE-specific install flows beyond a copyable config snippet.
+
+## User flows
+
+### 1. Connect an MCP client
+
+1. Admin navigates to **Dashboard → Settings → Admin MCP**.
+2. Clicks **Generate token**, names the connection, and selects scopes.
+3. Copies the generated config snippet (JSON) into their MCP client.
+4. Connection appears in the **Active connections** table with last-used timestamp.
+
+### 2. Review and revoke access
+
+- Each row in **Active connections** shows: name, scopes, created by, created at, last used, and a **Revoke** action.
+- Revoking immediately invalidates the token; in-flight requests fail with `401`.
+
+### 3. Inspect available operations
+
+- The **Operations** tab lists every callable method, grouped by namespace (`workflows`, `deployment`, `members`, `billing`, `integrations`, `analytics`).
+- Each operation shows its required scope and a one-line description.
+
+## Capabilities
+
+| Namespace | Example operations | Required scope |
+| --- | --- | --- |
+| `members` | invite, remove, change role | `members:write` |
+| `deployment` | read settings, update domain, trigger redeploy | `deployment:write` |
+| `integrations` | list, connect, disconnect | `integrations:write` |
+| `billing` | read plan, read usage | `billing:read` |
+| `analytics` | read traffic, read search queries | `analytics:read` |
+| `workflows` | list, run, cancel | `workflows:write` |
+
+## Security model
+
+- Tokens are bound to the issuing admin's role; scope intersections are enforced server-side.
+- All MCP calls are logged to the audit log with the connection name, operation, and outcome.
+- Tokens expire after 90 days by default; admins can shorten this per-connection.
+- Revocation propagates within 5 seconds across all edge regions.
+
+<Warning>
+  Tokens grant dashboard-equivalent power. Treat them like an admin password and never commit them to source control.
+</Warning>
+
+## Open questions
+
+- Should we support per-connection IP allowlists in v1, or defer to v2?
+- Do we need a read-only "observer" preset for incident response use cases?
+
+## Rollout
+
+- **Internal dogfood:** engineering \+ IT, 2 weeks.
+- **Private beta:** 10 design-partner orgs.
+- **GA:** behind a feature flag, enabled per-plan.

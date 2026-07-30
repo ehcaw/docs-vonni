@@ -170,10 +170,6 @@
             "pages": [
               "untitled-page"
             ]
-          },
-          {
-            "tab": "API Reference",
-            "openapi": "openapi.json"
           }
         ]
       }

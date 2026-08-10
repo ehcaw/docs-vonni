@@ -16,7 +16,7 @@
     "timestamp": true
   },
   "contextual": {
-    "options": ["copy", "view", "assistant", "mcp", "add-mcp"]
+    "options": ["copy", "view", "assistant", "mcp", "add-mcp", "download-spec"]
   },
   "navigation": {
     "languages": [
@@ -197,5 +197,5 @@
       "x": "https://x.com/yourcompany",
       "linkedin": "https://linkedin.com/company/yourcompany"
     }
-  }
+  },
 }

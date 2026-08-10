@@ -170,6 +170,15 @@
             "pages": [
               "untitled-page"
             ]
+          },
+          {
+            "tab": "API reference",
+            "groups": [
+              {
+                "group": "Sample API",
+                "openapi": "api-reference/sample-openapi.json"
+              }
+            ]
           }
         ]
       }

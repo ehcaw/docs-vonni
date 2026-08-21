@@ -112,5 +112,8 @@
       "x": "https://x.com/yourcompany",
       "linkedin": "https://linkedin.com/company/yourcompany"
     }
+  },
+  "fonts": {
+    "family": "Roboto"
   }
 }

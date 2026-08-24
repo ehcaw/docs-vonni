@@ -91,8 +91,8 @@
     ]
   },
   "logo": {
-    "light": "/logo/light.svg",
-    "dark": "/logo/dark.svg"
+    "light": "/images/mintlify-icon.svg",
+    "dark": "/images/mintlify-icon.svg"
   },
   "navbar": {
     "links": [

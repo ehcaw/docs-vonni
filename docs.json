@@ -88,6 +88,17 @@
         "group": "asdfasdf",
         "pages": []
       },
+      {
+        "group": "Petstore API",
+        "public": true,
+        "openapi": "/api-reference/sample-petstore.json",
+        "pages": []
+      },
+      {
+        "group": "Bookstore API",
+        "openapi": "/api-reference/sample-bookstore.json",
+        "pages": []
+      },
       "index"
     ]
   },

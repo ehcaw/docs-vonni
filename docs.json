@@ -91,13 +91,11 @@
       {
         "group": "Petstore API",
         "public": true,
-        "openapi": "/api-reference/sample-petstore.json",
-        "pages": []
+        "openapi": "/api-reference/sample-petstore.json"
       },
       {
         "group": "Bookstore API",
-        "openapi": "/api-reference/sample-bookstore.json",
-        "pages": []
+        "openapi": "/api-reference/sample-bookstore.json"
       },
       "index"
     ]
